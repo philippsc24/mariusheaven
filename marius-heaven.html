@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marius Heaven – Das Fleisch-Paradies</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1a1412;
+    --charcoal-2: #241b17;
+    --ember: #c8442a;
+    --flame: #e8863a;
+    --halo: #f2c14e;
+    --cream: #f5ead6;
+    --smoke: #a08d80;
+    --plate: #2e221c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  .display { font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif; letter-spacing: 0.02em; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; position: relative; padding: 2rem 1.5rem;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(242,193,78,0.22), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 50% 110%, rgba(200,68,42,0.25), transparent 65%),
+      var(--charcoal);
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(115deg, transparent 0 120px, rgba(242,193,78,0.03) 120px 121px);
+  }
+  .eyebrow {
+    font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.35em;
+    color: var(--halo); margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(3.2rem, 13vw, 9rem);
+    line-height: 0.95; text-transform: uppercase;
+    background: linear-gradient(180deg, var(--halo) 0%, var(--flame) 55%, var(--ember) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 80px rgba(232,134,58,0.25);
+  }
+  .hero .sub {
+    max-width: 34rem; margin: 1.6rem auto 2.4rem; color: var(--smoke);
+    font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.6;
+  }
+  .hero .sub strong { color: var(--cream); }
+  .btn-rain {
+    font-family: 'Anton', Impact, sans-serif; font-size: 1.15rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--charcoal);
+    background: linear-gradient(180deg, var(--halo), var(--flame));
+    border: none; border-radius: 999px; padding: 1.1rem 2.6rem; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(232,134,58,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-rain:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 40px rgba(232,134,58,0.55); }
+  .btn-rain:active { transform: translateY(0) scale(0.98); }
+  .btn-rain:focus-visible { outline: 3px solid var(--cream); outline-offset: 3px; }
+
+  .floaty { position: absolute; font-size: 2.6rem; opacity: 0.9; animation: floatUp linear infinite; pointer-events: none; filter: drop-shadow(0 0 12px rgba(242,193,78,0.5)); }
+  .floaty .halo { display:block; text-align:center; font-size: 1rem; margin-bottom: -0.6rem; }
+  @keyframes floatUp {
+    0%   { transform: translateY(105vh) rotate(-8deg); }
+    100% { transform: translateY(-15vh) rotate(8deg); }
+  }
+
+  /* falling meat rain */
+  .raindrop { position: fixed; top: -10vh; font-size: 2.4rem; z-index: 999; pointer-events: none; animation: fall 2.6s ease-in forwards; }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(115vh) rotate(360deg); opacity: 0.9; }
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee {
+    border-top: 1px solid rgba(242,193,78,0.25); border-bottom: 1px solid rgba(242,193,78,0.25);
+    background: var(--charcoal-2); overflow: hidden; white-space: nowrap; padding: 0.9rem 0;
+  }
+  .marquee-track { display: inline-block; animation: scroll 28s linear infinite; }
+  .marquee span {
+    font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 1.05rem; color: var(--flame); margin: 0 1.4rem;
+  }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- GALLERY ---------- */
+  .section { max-width: 1200px; margin: 0 auto; padding: 5.5rem 1.5rem; }
+  .section-head { text-align: center; margin-bottom: 3.2rem; }
+  .section-head h2 {
+    font-size: clamp(2rem, 6vw, 3.4rem); text-transform: uppercase; color: var(--cream);
+  }
+  .section-head h2 em { font-style: normal; color: var(--flame); }
+  .section-head p { color: var(--smoke); margin-top: 0.8rem; font-size: 1.05rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.4rem; }
+  .card {
+    background: linear-gradient(180deg, var(--plate), var(--charcoal-2));
+    border: 1px solid rgba(242,193,78,0.15); border-radius: 18px;
+    padding: 1.8rem 1.4rem 1.5rem; text-align: center; position: relative; overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(242,193,78,0.5); box-shadow: 0 18px 40px rgba(0,0,0,0.5); }
+  .dish {
+    font-size: 4.6rem; line-height: 1; display: inline-block; margin-bottom: 0.4rem;
+    background: radial-gradient(circle, rgba(242,193,78,0.16), transparent 70%);
+    border-radius: 50%; padding: 1.1rem;
+    transition: transform 0.25s ease;
+  }
+  .card:hover .dish { transform: scale(1.15) rotate(-4deg); }
+  .card h3 { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1.25rem; color: var(--halo); margin-bottom: 0.5rem; }
+  .card p { color: var(--smoke); font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.9rem; }
+  .rating { font-size: 0.95rem; letter-spacing: 0.15em; }
+  .tag {
+    position: absolute; top: 0.9rem; right: -2.4rem; transform: rotate(38deg);
+    background: var(--ember); color: var(--cream); font-size: 0.62rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.1em; padding: 0.28rem 2.8rem;
+  }
+
+  /* ---------- GARGRAD-METER ---------- */
+  .meter-box {
+    background: linear-gradient(180deg, var(--plate), var(--charcoal-2));
+    border: 1px solid rgba(242,193,78,0.2); border-radius: 24px;
+    padding: 3rem 2rem; max-width: 720px; margin: 0 auto; text-align: center;
+  }
+  .meter-emoji { font-size: 5rem; display: block; margin-bottom: 1rem; transition: filter 0.3s ease; }
+  input[type="range"] {
+    width: 100%; max-width: 460px; accent-color: var(--flame); height: 8px; cursor: pointer; margin: 1.4rem 0 0.6rem;
+  }
+  .meter-labels { display: flex; justify-content: space-between; max-width: 460px; margin: 0 auto; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--smoke); }
+  .meter-verdict { margin-top: 1.6rem; min-height: 3.4rem; }
+  .meter-verdict strong { display: block; font-family: 'Anton', Impact, sans-serif; font-size: 1.5rem; text-transform: uppercase; color: var(--flame); letter-spacing: 0.05em; }
+  .meter-verdict span { color: var(--smoke); font-size: 0.95rem; }
+
+  /* ---------- ZITAT ---------- */
+  .quote-box { text-align: center; max-width: 760px; margin: 0 auto; }
+  .quote-mark { font-size: 4rem; color: var(--ember); font-family: Georgia, serif; line-height: 0.5; }
+  blockquote {
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem); line-height: 1.45; color: var(--cream);
+    font-weight: 600; margin: 1.2rem 0; min-height: 5.5rem;
+  }
+  cite { color: var(--halo); font-style: normal; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.2em; }
+  .quote-btn {
+    margin-top: 1.6rem; background: transparent; border: 1px solid var(--flame); color: var(--flame);
+    border-radius: 999px; padding: 0.7rem 1.8rem; font-family: 'Inter', sans-serif; font-weight: 600;
+    cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+  }
+  .quote-btn:hover { background: var(--flame); color: var(--charcoal); }
+  .quote-btn:focus-visible { outline: 3px solid var(--cream); outline-offset: 3px; }
+
+  /* ---------- HEILIGENSCHREIN ---------- */
+  .shrine { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .shrine-halo { font-size: 3rem; margin-bottom: -1.2rem; z-index: 2; filter: drop-shadow(0 0 18px rgba(242,193,78,0.8)); }
+  .shrine-frame {
+    width: min(380px, 85vw); aspect-ratio: 4 / 5; border-radius: 22px; cursor: pointer;
+    padding: 10px; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--halo), var(--ember) 60%, var(--flame));
+    box-shadow: 0 0 60px rgba(242,193,78,0.25), 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .shrine-frame:hover { transform: scale(1.02); box-shadow: 0 0 80px rgba(242,193,78,0.4), 0 24px 60px rgba(0,0,0,0.55); }
+  .shrine-frame img {
+    display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;
+  }
+  .shrine-placeholder {
+    position: absolute; inset: 10px; border-radius: 14px;
+    background: var(--charcoal-2); border: 2px dashed rgba(242,193,78,0.5);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.7rem; padding: 1.6rem; color: var(--smoke); font-size: 0.9rem; line-height: 1.55;
+  }
+  .shrine-placeholder .ph-icon { font-size: 3.4rem; }
+  .shrine-placeholder strong { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; color: var(--halo); font-size: 1.15rem; }
+  .shrine-placeholder code { color: var(--flame); background: rgba(232,134,58,0.12); padding: 0.1rem 0.4rem; border-radius: 6px; }
+  .shrine-caption { margin-top: 1.4rem; color: var(--smoke); font-style: italic; font-size: 1rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid rgba(242,193,78,0.2); padding: 2.6rem 1.5rem; text-align: center;
+    color: var(--smoke); font-size: 0.88rem; line-height: 1.8; background: var(--charcoal-2);
+  }
+  footer .big { font-size: 1.6rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floaty, .marquee-track, .raindrop { animation: none !important; }
+    .floaty { display: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="floaty" style="left:6%;  animation-duration:14s; animation-delay:0s;"><span class="halo">😇</span>🥩</div>
+  <div class="floaty" style="left:18%; animation-duration:19s; animation-delay:3s; font-size:2rem;"><span class="halo">✨</span>🍖</div>
+  <div class="floaty" style="left:33%; animation-duration:16s; animation-delay:7s;"><span class="halo">😇</span>🍗</div>
+  <div class="floaty" style="left:55%; animation-duration:21s; animation-delay:1s; font-size:2.2rem;"><span class="halo">✨</span>🥓</div>
+  <div class="floaty" style="left:72%; animation-duration:15s; animation-delay:5s;"><span class="halo">😇</span>🍔</div>
+  <div class="floaty" style="left:88%; animation-duration:18s; animation-delay:9s; font-size:2rem;"><span class="halo">✨</span>🌭</div>
+
+  <p class="eyebrow">Willkommen im Paradies</p>
+  <h1 class="display">Marius<br>Heaven</h1>
+  <p class="sub">Der einzige Ort auf Erden, an dem <strong>Fleisch von Engeln gegrillt</strong> wird, Beilagen optional sind und niemand fragt, ob du „wirklich noch ein Steak" möchtest. <strong>Natürlich möchtest du.</strong></p>
+  <button class="btn-rain" onclick="meatRain()">🥩 Fleisch regnen lassen</button>
+</header>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>🥩 Saftig</span><span>🔥 900 °C</span><span>🍖 Medium Rare</span><span>🥓 Bacon ist Gemüse</span><span>🍗 Protein</span><span>🔥 Röstaromen</span><span>🥩 Dry Aged</span><span>🍔 Doppelt Käse</span><span>🌭 Extra Wurst</span><span>🔥 Smoke Ring</span>
+  </div>
+</div>
+
+<!-- ================= GALLERY ================= -->
+<main>
+<section class="section" id="marius">
+  <div class="section-head">
+    <h2 class="display">Der Heilige <em>Marius</em></h2>
+    <p>Schutzpatron des Medium Rare. Bezwinger der Beilagen.</p>
+  </div>
+  <div class="shrine">
+    <div class="shrine-halo" aria-hidden="true">😇</div>
+    <div class="shrine-frame" onclick="document.getElementById('shrineUpload').click()" title="Klicken, um ein Bild auszuwählen">
+      <img id="mariusImg" src="marius.png" alt="Marius höchstpersönlich" onload="shrineLoaded()" onerror="this.style.display='none'">
+      <div class="shrine-placeholder" id="shrinePlaceholder">
+        <span class="ph-icon">🖼️</span>
+        <strong>Hier kommt Marius hin</strong>
+        <span>Lege eine Datei namens <code>marius.png</code> in denselben Ordner wie diese Website – oder klicke einfach hier und wähle ein Bild aus.</span>
+      </div>
+    </div>
+    <input type="file" id="shrineUpload" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="loadShrineImage(this)">
+    <p class="shrine-caption">„Er kam, sah und bestellte Nachschlag."</p>
+  </div>
+</section>
+
+<section class="section" id="karte">
+  <div class="section-head">
+    <h2 class="display">Die himmlische <em>Speisekarte</em></h2>
+    <p>Kuratiert von Erzengeln mit Michelin-Erfahrung. Alle Gerichte in Marius-Größe (XXL).</p>
+  </div>
+  <div class="grid">
+    <article class="card"><span class="tag">Signature</span><span class="dish">🥩</span><h3>Tomahawk Steak</h3><p>1,2 kg pures Glück am Knochen. Der Knochen dient als Griff – und als Statement.</p><div class="rating">🔥🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🍖</span><h3>Spareribs</h3><p>12 Stunden gesmoked. Fällt vom Knochen wie deine Motivation am Freitagnachmittag.</p><div class="rating">🔥🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🍗</span><h3>Crispy Chicken</h3><p>Außen knuspriger als jede Excel-Deadline, innen zarter als ein Feierabend.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="tag">Klassiker</span><span class="dish">🍔</span><h3>Heaven Burger</h3><p>Drei Patties, doppelt Käse, Bacon. Salatblatt auf Anfrage (wird aber getuschelt).</p><div class="rating">🔥🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🥓</span><h3>Bacon Deluxe</h3><p>Wissenschaftlich erwiesen: Bacon macht alles besser. Sogar Bacon.</p><div class="rating">🔥🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🌭</span><h3>Bratwurst XXL</h3><p>50 cm Handwerkskunst. Senf inklusive, Diskussionen über Ketchup nicht.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🥘</span><h3>Pulled Pork</h3><p>16 Stunden Geduld, 16 Sekunden verputzt. So ist das Leben im Paradies.</p><div class="rating">🔥🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="tag">Deutsch</span><span class="dish">🍽️</span><h3>Schnitzel-Teller</h3><p>Größer als der Teller. Panade so goldig wie der Sonnenaufgang über dem Grill.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🥙</span><h3>Döner Royal</h3><p>Mit alles und scharf. Der Kebab-Meister nickt dir respektvoll zu.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🍕</span><h3>Pizza Carnivora</h3><p>Salami, Schinken, Hack, Bacon. Der Teig ist nur die Transportfläche.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="dish">🍤</span><h3>Surf & Turf</h3><p>Für Tage, an denen ein Tier einfach nicht reicht.</p><div class="rating">🔥🔥🔥🔥</div></article>
+    <article class="card"><span class="tag">Dessert</span><span class="dish">🍩</span><h3>Donut-Nachtisch</h3><p>Auch im Fleischhimmel gilt: Der Nachtisch-Magen ist ein separates Organ.</p><div class="rating">🔥🔥🔥</div></article>
+  </div>
+</section>
+
+<!-- ================= GARGRAD-METER ================= -->
+<section class="section">
+  <div class="section-head">
+    <h2 class="display">Das offizielle <em>Gargrad-Meter</em></h2>
+    <p>Stell ein, wie du dein Steak möchtest. Wir urteilen. Ein bisschen.</p>
+  </div>
+  <div class="meter-box">
+    <span class="meter-emoji" id="meterEmoji">🥩</span>
+    <input type="range" min="0" max="4" value="1" id="meterSlider" aria-label="Gargrad wählen" oninput="updateMeter(this.value)">
+    <div class="meter-labels"><span>Rare</span><span>Medium Rare</span><span>Medium</span><span>Medium Well</span><span>Well Done</span></div>
+    <div class="meter-verdict" id="meterVerdict">
+      <strong>Medium Rare</strong>
+      <span>Die einzig wahre Antwort. Willkommen im inneren Zirkel des Paradieses.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ZITATE ================= -->
+<section class="section">
+  <div class="quote-box">
+    <div class="quote-mark" aria-hidden="true">„</div>
+    <blockquote id="quoteText">Ein Tag ohne Steak ist wie ein Meeting ohne Agenda: theoretisch möglich, aber wozu?</blockquote>
+    <cite id="quoteAuthor">— Marius, Fleischphilosoph</cite>
+    <br>
+    <button class="quote-btn" onclick="nextQuote()">Nächste Weisheit 🍖</button>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="big">🥩 😇 🍖</div>
+  <p>Mit ❤️ und sehr viel 🥩 gebaut, um einen gewissen Marius aufzuheitern.<br>
+  Bei der Erstellung dieser Website wurde kein einziges Gemüse ernst genommen.</p>
+</footer>
+
+<script>
+  // Marquee-Inhalt verdoppeln für nahtloses Scrollen
+  const marquee = document.getElementById('marquee');
+  marquee.innerHTML += marquee.innerHTML;
+
+  // 🥩 Fleisch-Regen
+  const MEATS = ['🥩','🍖','🍗','🥓','🍔','🌭','🍕','🥙'];
+  function meatRain() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    for (let i = 0; i < 40; i++) {
+      setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'raindrop';
+        d.textContent = MEATS[Math.floor(Math.random() * MEATS.length)];
+        d.style.left = Math.random() * 100 + 'vw';
+        d.style.fontSize = (1.6 + Math.random() * 1.8) + 'rem';
+        d.style.animationDuration = (1.8 + Math.random() * 1.6) + 's';
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 3600);
+      }, i * 60);
+    }
+  }
+
+  // Gargrad-Meter
+  const VERDICTS = [
+    { e: '🥩', t: 'Rare', s: 'Ein guter Tierarzt kriegt das wieder hin. Respekt für den Mut.' },
+    { e: '🥩', t: 'Medium Rare', s: 'Die einzig wahre Antwort. Willkommen im inneren Zirkel des Paradieses.' },
+    { e: '🍖', t: 'Medium', s: 'Solide. Sicher. Die Schweiz unter den Gargraden.' },
+    { e: '🍖', t: 'Medium Well', s: 'Hmm. Wir müssen reden. Aber okay, noch bist du im Paradies geduldet.' },
+    { e: '🔥', t: 'Well Done', s: 'Sicherheitsdienst! Bitte begleiten Sie diese Person zum Ausgang des Paradieses.' }
+  ];
+  function updateMeter(v) {
+    const x = VERDICTS[v];
+    document.getElementById('meterEmoji').textContent = x.e;
+    document.getElementById('meterVerdict').innerHTML = '<strong>' + x.t + '</strong><span>' + x.s + '</span>';
+  }
+
+  // 🖼️ Marius-Schrein: Bild laden
+  function shrineLoaded() {
+    document.getElementById('shrinePlaceholder').style.display = 'none';
+    document.getElementById('mariusImg').style.display = 'block';
+  }
+  function loadShrineImage(input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const img = document.getElementById('mariusImg');
+    img.src = URL.createObjectURL(file);
+  }
+
+  // Fleisch-Weisheiten
+  const QUOTES = [
+    { q: 'Ein Tag ohne Steak ist wie ein Meeting ohne Agenda: theoretisch möglich, aber wozu?', a: 'Marius, Fleischphilosoph' },
+    { q: 'Salat ist das, was mein Essen isst.', a: 'Uraltes Grill-Sprichwort' },
+    { q: 'Man kann Glück nicht kaufen. Aber man kann Ribs kaufen, und das ist ziemlich genau dasselbe.', a: 'Der Erzengel vom Smoker' },
+    { q: 'Vertraue niemandem, der sein Steak well done bestellt und dabei lächelt.', a: 'Marius, Fleischphilosoph' },
+    { q: 'Beilagen sind auch nur Deko mit Kalorien.', a: 'Sankt Bratwurst' },
+    { q: 'Erst kommt das Fleisch, dann die Moral.', a: 'Frei nach Brecht, sehr frei' },
+    { q: 'Ich habe einen Ernährungsplan: Wenn es mal Fleisch gab, ernähre ich mich davon.', a: 'Marius, Fleischphilosoph' }
+  ];
+  let qi = 0;
+  function nextQuote() {
+    qi = (qi + 1) % QUOTES.length;
+    document.getElementById('quoteText').textContent = QUOTES[qi].q;
+    document.getElementById('quoteAuthor').textContent = '— ' + QUOTES[qi].a;
+  }
+</script>
+</body>
+</html>
